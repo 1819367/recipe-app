@@ -99,7 +99,7 @@ def update_recipe(recipe_id):
         if field not in data or data[field] == "":
             return jsonify({'error': f"Missing required field: '{field}'"}), 400
         
-    # this takes the new recipe info and saves changes/overwrites it to the db 
+    # this takes the new recipe info and saves changes/npmoverwrites it to the db 
     recipe.title = data['title']
     recipe.ingredients = data['ingredients']
     recipe.instructions = data['instructions']
