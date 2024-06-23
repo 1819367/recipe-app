@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm }) => {
+const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm, handleNewRecipe }) => {
     return (
         <div className='recipe-details'>
             <div className='recipe-form'>
@@ -9,7 +9,8 @@ const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm }) => {
                     Cancel
                 </button>
 
-                <form>
+                <form 
+                    onSubmit={(e) => handleNewRecipe(e, newRecipe)}>
                     <label>Title</label>
                     <input
                         type='text'
