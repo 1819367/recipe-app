@@ -1,6 +1,11 @@
 import React from "react";
 
-const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm, handleNewRecipe }) => {
+const NewRecipeForm = ({ 
+    newRecipe, 
+    hideRecipeForm, 
+    onUpdateForm, 
+    handleNewRecipe 
+    }) => {
     return (
         <div className='recipe-details'>
             <div className='recipe-form'>
@@ -16,14 +21,14 @@ const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm, handleNewRecip
                         type='text'
                         name='title'
                         value={newRecipe.title}
-                        onChange={(e) => onUpdateForm(e)} 
+                        onChange={(e) => onUpdateForm(e, "new")} 
                         required />
 
                     <label>Ingredients</label>
                     <textarea
                         name='ingredients'
                         value={newRecipe.ingredients}
-                        onChange={(e) => onUpdateForm(e)}
+                        onChange={(e) => onUpdateForm(e, "new")}
                         required
                         placeholder='Add ingredients separated by commas - i.e. Flour, sugar, almonds'
                     />
@@ -32,14 +37,14 @@ const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm, handleNewRecip
                     <textarea
                         name='instructions'
                         value={newRecipe.instructions}
-                        onChange={(e) => onUpdateForm(e)}
+                        onChange={(e) => onUpdateForm(e, "new")}
                         required />
 
                     <label>Description</label>
                     <textarea
                         name='description'
                         value={newRecipe.description}
-                        onChange={(e) => onUpdateForm(e)}
+                        onChange={(e) => onUpdateForm(e, "new")}
                         required />
 
                     <label>Image</label>
@@ -47,7 +52,7 @@ const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm, handleNewRecip
                         type='text'
                         name='image_url'
                         value={newRecipe.image_url}
-                        onChange={(e) => onUpdateForm(e)} 
+                        onChange={(e) => onUpdateForm(e, "new")} 
                         required />
 
                     <label>Servings</label>
@@ -55,7 +60,7 @@ const NewRecipeForm = ({ newRecipe, hideRecipeForm, onUpdateForm, handleNewRecip
                         type='number'
                         name='servings'
                         value={newRecipe.serving}
-                        onChange={(e) => onUpdateForm(e)} 
+                        onChange={(e) => onUpdateForm(e, "new")} 
                         required />
 
                     <button type='submit'>Save Recipe</button>
