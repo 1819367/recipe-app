@@ -17,6 +17,7 @@ const App = () => {
     description: "",
     image_url: "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
   });
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchAllRecipes = async () => {
@@ -161,9 +162,31 @@ const App = () => {
     }
   };
 
+  const updateSearchTerm = (text) => {
+    setSearchTerm(text);
+  };
+
+  const handleSearch = () => {
+    //filter of each recipe in state
+    const searchResults = recipes.filter((recipe) => {
+      //if recipe passes this search it is returned in searchResults
+      const valuesToSearch = [recipe.title, recipe.ingredients, recipe.description];
+      //does at least one of the lowercase 'values' include the lowercase 'searchterm'?
+      return valuesToSearch.some((value) => value.toLowerCase().includes(searchTerm.toLowerCase()));
+      
+    })
+    //if yes to the some method, it will pass the 'some' to searchResults
+    return searchResults;
+  };
+
+  const displayedRecipes = searchTerm ? handleSearch() : recipes;
+
   return (
     <div className="recipe-app">
-      <Header showRecipeForm={showRecipeForm} />
+      <Header 
+        showRecipeForm={showRecipeForm} 
+        searchTerm={searchTerm}
+        updateSearchTerm={updateSearchTerm}/>
       
       {showNewRecipeForm && (
         <NewRecipeForm
@@ -184,7 +207,7 @@ const App = () => {
       )}
       {!selectedRecipe && !showNewRecipeForm && (
         <div className="recipe-list">
-          {recipes.map((recipe) => (
+          {displayedRecipes.map((recipe) => (
             <RecipeExcerpt
               key={recipe.id}
               recipe={recipe}
@@ -196,6 +219,7 @@ const App = () => {
       <p>Your recipes here!</p>
     </div>
   );
+
 };
 
 export default App;
