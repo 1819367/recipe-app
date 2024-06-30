@@ -3,7 +3,11 @@ import Header from "./components/Header";
 import RecipeExcerpt from "./components/RecipeExcerpt";
 import RecipeFull from "./components/RecipeFull";
 import NewRecipeForm from "./components/NewRecipeForm";
+import displayToast from "./helpers/toastHelper";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css" 
 import "./App.css";
+
 
 const App = () => {
   const [recipes, setRecipes] = useState([]);
@@ -27,11 +31,11 @@ const App = () => {
           const result = await request.json();
           setRecipes(result);
         } else {
-          console.log("Oops, something went wrong");
+          displayToast("Oops, something went wrong", "error");
         }
       } catch (e) {
-        console.error("An error occurred during the request:", e);
-        console.log("An unexpected error occurred. Please try again later.");
+        displayToast("An error occurred during the request:", "error");
+        displayToast("An unexpected error occurred. Please try again later.", "error");
       }
     };
 
@@ -55,7 +59,7 @@ const App = () => {
 
         setRecipes([...recipes, data.recipe]);
 
-        console.log("Recipe added successfully!");
+        displayToast("Recipe added successfully!", "success");
 
         setShowNewRecipeForm(false);
         setNewRecipe({
@@ -68,11 +72,11 @@ const App = () => {
             "https://images.pexels.com/photos/9986228/pexels-photo-9986228.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         });
       } else {
-        console.error("Oops - could not add recipe!");
+        displayToast("Oops - could not add recipe!", "error");
       }
     } catch (e) {
-      console.error("An error occurred during the request:", e);
-      console.log("An unexpected error occurred. Please try again later.");
+        displayToast("An error occurred during the request:", "error");
+        displayToast("An unexpected error occurred. Please try again later.", "error");
     }
   };
 
@@ -102,14 +106,14 @@ const App = () => {
             return recipe;
           })
         );
-        console.log("Recipe updated successfully!");
+        displayToast("Recipe updated successfully!", "success");
       
       } else {
-        console.error("Could not update the recipe!");
+        displayToast("Could not update the recipe!", "error");
       }
     } catch (e) {
-      console.error("An error occurred during the request:", e);
-      console.log("An unexpected error occurred. Please try again later.");
+        displayToast("An error occurred during the request:", "error");
+        displayToast("An unexpected error occurred. Please try again later.", "error");
     }
 
     setSelectedRecipe(null);
@@ -142,14 +146,14 @@ const App = () => {
         //if ok, we want to update our state and filter out the recipe to be deleted
         setRecipes(recipes.filter((recipe) => recipe.id !== recipeId));
         setSelectedRecipe(null);
-        console.log("Recipe deleted successfully!");
+        displayToast("Recipe deleted successfully!", "success");
       } else {
-        console.error("The selected recipe could not be deleted!");
+        displayToast("The selected recipe could not be deleted!", "error");
       }
         
     } catch (e) {
-      console.error("An error occurred during the request:", e);
-      console.log("An unexpected error occured. Try again.");
+      displayToast("An error occurred during the request:", "error");
+      displayToast("An unexpected error occured. Try again.", "error");
     }
   };
 
@@ -179,6 +183,13 @@ const App = () => {
     return searchResults;
   };
 
+  const displayAllRecipes = () => {
+    handleUnselectRecipe();
+    hideRecipeForm();
+    updateSearchTerm("");
+  };
+
+
   const displayedRecipes = searchTerm ? handleSearch() : recipes;
 
   return (
@@ -186,7 +197,8 @@ const App = () => {
       <Header 
         showRecipeForm={showRecipeForm} 
         searchTerm={searchTerm}
-        updateSearchTerm={updateSearchTerm}/>
+        updateSearchTerm={updateSearchTerm}
+        displayAllRecipes={displayAllRecipes}/>
       
       {showNewRecipeForm && (
         <NewRecipeForm
@@ -216,10 +228,9 @@ const App = () => {
           ))}
         </div>
       )}
-      <p>Your recipes here!</p>
-    </div>
+      < ToastContainer />
+    </div> 
   );
-
 };
 
 export default App;

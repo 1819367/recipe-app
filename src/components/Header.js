@@ -5,12 +5,13 @@ import { ReactComponent as Logo } from "../images/utensils.svg";
 const Header = ({ 
   showRecipeForm,
   searchTerm,
-  updateSearchTerm
+  updateSearchTerm,
+  displayAllRecipes
   }) => {
   return (
     <header>
       <div className='logo-search'>
-        <Logo />
+        <Logo onClick={displayAllRecipes} />
         <div className='search'>
           <label 
             className='visually-hidden' 
