@@ -1,5 +1,8 @@
 import time
+<<<<<<< HEAD
 import os
+=======
+>>>>>>> origin/main
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
@@ -137,6 +140,8 @@ def delete_recipe(recipe_id):
 
 
 if __name__ == '__main__':
+
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
 
       # app.run(debug=True) previous setting and removed to deploy on Render
+
